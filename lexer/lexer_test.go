@@ -8,32 +8,32 @@ import (
 func TestNextToken(t *testing.T) {
 	input := `=+(){},;`
 
-	test := []struct {
+	tests := []struct {
 		expectedType    token.TokenType
 		expectedLiteral string
 	}{
 		{token.ASSIGN, "="},
 		{token.PLUS, "+"},
 		{token.LPAREN, "("},
-        {token.RPAREN, ")"},
-        {token.LBRACE, "{"},
-        {token.RBRACE, "}"},
-        {token.COMMA, ","},
-        {token.SEMICOLON, ";"},
-        {token.EOF, ""}
+		{token.RPAREN, ")"},
+		{token.LBRACE, "{"},
+		{token.RBRACE, "}"},
+		{token.COMMA, ","},
+		{token.SEMICOLON, ";"},
+		{token.EOF, ""},
 	}
 
-    l := New(input)
+	l := New(input)
 
-    for i, tt:= range tests {
-        toke := l.NextToken()
+	for i, tt := range tests {
+		tok := l.NextToken()
 
-        if tok.Type != tt.expectedType {
-            t.Fatalf("test[%d] - tokentype wrong. expected=%q, got=%q", i, tt.expectedType, tok.Type)
-        }
+		if tok.Type != tt.expectedType {
+			t.Fatalf("test[%d] - tokentype wrong. expected=%q, got=%q", i, tt.expectedType, tok.Type)
+		}
 
-        if tok.Literal != tt.exprectedLiteral {
-            t.Fatalf("tests[%d] - literal wrong. expected=%q, got%=q", i, tt.exptectedLiteral, tok.Literal)
-        }
-    }
+		if tok.Literal != tt.expectedLiteral {
+			t.Fatalf("tests[%d] - literal wrong. expected=%q, got%=q", i, tt.expectedLiteral, tok.Literal)
+		}
+	}
 }
